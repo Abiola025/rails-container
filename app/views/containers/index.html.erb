@@ -1,2 +1,22 @@
 <h1>Containers#index</h1>
 <p>Find me in app/views/containers/index.html.erb</p>
+
+<%= link_to "create container", new_container_path, class: "btn btn-primary" %>
+
+<div class="container">
+  <% @containers.each do |container| %>
+    <div class="card">
+      name: <%= container.name %><br>
+      detail: <%= container.detail %><br>
+      daily price: <%= container.daily_price %><br>
+      width: <%= container.width %><br>
+      height: <%= container.height %><br>
+      length: <%= container.length %><br>
+      empty weight: <%= container.empty_weight %><br>
+      maximum weight: <%= container.maximum_weight %><br>
+      image url: <%= container.image_url %><br>
+      user email: <%= container.user.email %><br>
+    </div>
+    <br>
+  <% end %>
+</div>
