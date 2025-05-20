@@ -1,6 +1,8 @@
 <h1>Containers#index</h1>
 <p>Find me in app/views/containers/index.html.erb</p>
 
+<%= link_to "create container", new_container_path, class: "btn btn-primary" %>
+
 <div class="container">
   <% @containers.each do |container| %>
     <div class="card">
@@ -15,5 +17,6 @@
       image url: <%= container.image_url %><br>
       user email: <%= container.user.email %><br>
     </div>
+    <br>
   <% end %>
 </div>
