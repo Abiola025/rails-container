@@ -3,6 +3,7 @@
 
 <%= link_to "create container", new_container_path, class: "btn btn-primary" %>
 
+
 <div class="container">
   <% @containers.each do |container| %>
     <div class="card">
@@ -16,6 +17,7 @@
       maximum weight: <%= container.maximum_weight %><br>
       image url: <%= container.image_url %><br>
       user email: <%= container.user.email %><br>
+      <%=link_to "Show Container", container_path(container) %>
     </div>
     <br>
   <% end %>
