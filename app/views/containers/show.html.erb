@@ -1,6 +1,9 @@
 <h1>Containers#index</h1>
 <p>Find me in app/views/containers/show.html.erb</p>
 
+<%= link_to "Back", containers_path, class: "btn btn-primary" %>
+
+<div class="container">
        <h2><%= @container.name %></h2>
        <%= @container.detail %><br>
        <%= @container.daily_price %><br>
@@ -10,3 +13,42 @@
        <%= @container.empty_weight %><br>
        <%= @container.maximum_weight %><br>
        <%= @container.image_url %><br>
+
+<h2>Your Booking History</h2>
+
+` <% @bookings.each do |booking| %>
+<br>
+    <div class="card">
+
+
+      <% if booking.decline == true %>
+        status: Declined <br>
+        <% elsif booking.accept == true %>
+        status: accepted <br>
+        <% else %>
+        status: pending <br>
+        <% end %>
+
+      Your Comments: <%= booking.comment %><br>
+      Price: <%= booking.price %><br>
+      Start Date: <%= booking.date_from %><br>
+      End Date: <%= booking.date_to %><br>
+
+    </div>
+  <% end %>
+
+  <div>
+  <br>
+  <h2>Create New Booking</h2>
+    <%= simple_form_for [@container, @booking] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :date_from %>
+      <%= f.input :date_to %>
+      <%= f.button :submit %>
+    <% end %>
+
+
+
+
+    </div>
+</div>

@@ -19,7 +19,8 @@ end
 
 def show
   @container = Container.find(params[:id])
-
+  @booking = Booking.new
+  @bookings = @container.bookings.where(user_id: current_user)
 end
 
 private
