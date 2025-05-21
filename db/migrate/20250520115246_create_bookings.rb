@@ -5,8 +5,8 @@ class CreateBookings < ActiveRecord::Migration[7.1]
       t.date :date_from
       t.date :date_to
       t.decimal :price
-      t.boolean :accept
-      t.boolean :decline
+      t.boolean :accept, defualt: false
+      t.boolean :decline, defualt: false
       t.references :container, null: false, foreign_key: true
       t.references :user, null: false, foreign_key: true
 
