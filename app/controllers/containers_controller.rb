@@ -17,6 +17,11 @@ class ContainersController < ApplicationController
   end
 end
 
+def show
+  @container = Container.find(params[:id])
+
+end
+
 private
 
 def container_params
