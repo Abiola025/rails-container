@@ -39,6 +39,7 @@ def accept
     redirect_to bookings_path, status: :see_other
   end
 end
+
 def decline
   @booking = Booking.find(params[:id])
   @booking.decline =true
