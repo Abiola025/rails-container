@@ -7,7 +7,7 @@
 <div class="cards-containers">
   <% @containers.each do |container| %>
     <div class="card card-container">
-      <img src='<%=container.image_url%>' class="card-img-top">
+      <%= cl_image_tag(container.photo.key, height: 300, width: 400, crop: :fill) %>
         <div class="card-body">
         <h5 class="card-title"><%= container.name %></h5>
            <p class="card-text">detail: <%= container.detail %></p>

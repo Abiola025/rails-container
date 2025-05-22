@@ -4,7 +4,7 @@
 
 <div class="container">
 <div class= "card card-container">
-     <img src='<%=@container.image_url%>' class="card-img-top">
+     <%= cl_image_tag(@container.photo.key, height: 300, width: 400, crop: :fill) %>
       <div class="card-body">
        <h2><%= @container.name %></h2>
        <%= @container.detail %><br>
