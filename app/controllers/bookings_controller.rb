@@ -71,6 +71,7 @@ end
 
   def date_clash(booking)
     clashes = Booking.where("date_to > ?", DateTime.now)
+    clashes = clashes.where(accept: true)
     result = false
       clashes.each do |clash|
         break if result==true
