@@ -60,5 +60,6 @@ end
     #placeholder calculation - need to calculate based on number of days
     @days = @booking.date_to - @booking.date_from
     @days = @days.to_i
+    @days = @days + 1
   end
 end
