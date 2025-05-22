@@ -13,6 +13,11 @@ Rails.application.routes.draw do
 resources :containers, only: [:index, :show, :new, :create] do
   resources :bookings, only: [:create]
 end
-resources :bookings, only: [:index]
+resources :bookings, only: [:index] do
+  member do
+    patch "accept"
+    patch "decline"
+  end
+end
 
 end

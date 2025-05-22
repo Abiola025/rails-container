@@ -40,7 +40,8 @@ My Containers
           <% elsif sale.accept == true %>
           <h2>status: accepted <br></h2>
           <% else %>
-          DO THE BUTTON LOGIC
+          <%= button_to "Accept", accept_booking_path(sale), method: :patch %>
+          <%= button_to "Decline", decline_booking_path(sale), method: :patch %>
       <% end %>
       <br><%= sale.container.name %>
       <br><%= sale.comment %>
