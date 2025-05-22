@@ -30,9 +30,14 @@ end
 
 def accept
   @booking = Booking.find(params[:id])
-  @booking.accept=true
-  @booking.save
-  redirect_to bookings_path, status: :see_other
+
+  if date_clash(@booking)==true
+    redirect_to bookings_path, status: :see_other
+  else
+    @booking.accept=true
+    @booking.save
+    redirect_to bookings_path, status: :see_other
+  end
 end
 def decline
   @booking = Booking.find(params[:id])
@@ -61,5 +66,24 @@ end
     @days = @booking.date_to - @booking.date_from
     @days = @days.to_i
     @days = @days + 1
+  end
+
+  def date_clash(booking)
+    clashes = Booking.where("date_to > ?", DateTime.now)
+    result = false
+      clashes.each do |clash|
+        break if result==true
+        if booking.date_from > clash.date_from && booking.date_from < clash.date_to
+          result = true
+        elsif booking.date_to > clash.date_from && booking.date_to < clash.date_to
+          result = true
+        elsif booking.date_from < clash.date_from && booking.date_to > clash.date_to
+          result = true
+          break
+        else
+          result = false
+        end
+      end
+      return result
   end
 end
