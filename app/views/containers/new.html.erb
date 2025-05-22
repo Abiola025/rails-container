@@ -1,15 +1,16 @@
-<div class="container">
-</h1>Create A Container</h1>
-<%= simple_form_for @container do |f|%>
-<%= f.input :name %>
-<%= f.input :detail %>
-<%= f.input :height %>
-<%= f.input :width %>
-<%= f.input :length %>
-<%= f.input :maximum_weight %>
-<%= f.input :empty_weight %>
-<%= f.input :daily_price %>
-<%= f.input :photo, as: :file %>
-<%= f.button :submit %>
-<% end %>
+<div class="container-lg border form mt-4">
+<h1 class="mt-4">Create A Container</h1>
+    <%= simple_form_for @container do |f|%>
+    <%= f.input :name %>
+    <%= f.input :detail %>
+    <%= f.input :height %>
+    <%= f.input :width %>
+    <%= f.input :length %>
+    <%= f.input :maximum_weight %>
+    <%= f.input :empty_weight %>
+    <%= f.input :daily_price %>
+    <%= f.input :photo, as: :file %>
+    <%= f.button :submit, class: "btn btn-primary mt-4 mb-4" %>
+    <% end %>
+</div>
 </div>
