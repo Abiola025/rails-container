@@ -1,6 +1,18 @@
 class BookingsController < ApplicationController
 before_action :container_lookup, only: %i[create]
 
+def index
+  @my_bookings = Booking.where(user_id: current_user)
+  @containers = Container.where(user_id: current_user)
+  @sales_bookings = []
+  @containers.each do |container|
+    if container.bookings.all.empty?
+    else
+    @sales_bookings << container.bookings.all
+    end
+  end
+end
+
 def create
 
     @booking = Booking.new(booking_params)
