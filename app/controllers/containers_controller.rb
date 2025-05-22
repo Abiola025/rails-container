@@ -26,7 +26,7 @@ end
 private
 
 def container_params
-  params.require(:container).permit(:name, :detail, :width, :height, :length, :maximum_weight, :empty_weight, :daily_price, :image_url)
+  params.require(:container).permit(:name, :detail, :width, :height, :length, :maximum_weight, :empty_weight, :daily_price, :photo)
 end
 
 def set_user
