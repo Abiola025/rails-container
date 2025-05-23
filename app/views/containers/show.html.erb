@@ -11,13 +11,11 @@
 <div class="d-flex flex-row justify-content-evenly">
 
   <div>
-  <%= cl_image_tag(@container.photo.key, height: 300, width: 400, crop: :fill) %>
+    <%= cl_image_tag(@container.photo.key, height: 300, width: 400, crop: :fill) %>
   </div>
-
   <div class= "card form " style="width:100%;">
         <div class="card-body">
         <h2><%= @container.name %></h2>
-
         <p class="card-text">Daily Price: £<%= @container.daily_price %><br>
         <p class="card-text">HxWxL = <%= @container.height %>x<%= @container.width %>x<%= @container.length %><br>
         <p class="card-text">Container weight: <%= @container.empty_weight %></p>
