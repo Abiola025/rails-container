@@ -1,56 +1,34 @@
-My Containers
-<div class="container">
-<h1>@my_bookings</h1>
 
+
+<div class="container">
+<h1>My Rentals</h1>
 
  <% @my_bookings.each do |my_booking| %>
- <br>
- <br>
- <div class="card">
- Container Details (repeat for others): <%= my_booking.container.name %><br>
- <%= cl_image_tag(my_booking.container.photo.key, height: 300, width: 400, crop: :fill) %>
-  <% if my_booking.decline == true %>
-       <h2> status: Declined <br></h2>
-        <% elsif my_booking.accept == true %>
-         <h2>status: accepted <br></h2>
-        <% else %>
-       <h2>  status: pending <br></h2>
-        <% end %>
 
-      Your Comments: <%= my_booking.comment %><br>
-      Price: <%= my_booking.price %><br>
-      Rental Start Date: <%= my_booking.date_from %><br>
-      Rental End Date: <%= my_booking.date_to %><br>
-  <br>
- <br>
- <%= link_to "Order Again?", container_path(my_booking.container)%>
- </div>
- <% end %>
-
-</div>
-<div class = "container">
-<h1>MY SALES</h1>
-
-@sales_bookings
-<% @sales_bookings.each do |my_sale| %>
-    <% my_sale.each do |sale| %>
-    <div class="card">
-      <% if sale.decline == true %>
-        <h2> status: Declined <br></h2>
-          <% elsif sale.accept == true %>
-          <h2>status: accepted <br></h2>
-          <% else %>
-          <%= button_to "Accept", accept_booking_path(sale), method: :patch %>
-          <%= button_to "Decline", decline_booking_path(sale), method: :patch %>
-      <% end %>
-      <br><%= sale.container.name %>
-      <br><%= sale.comment %>
-      <br><%= sale.date_from %>
-      <br><%= sale.date_to %>
-      <br><%= sale.price %>
-    </div>
-
+    <% if my_booking.decline == true %>
+      <div class="card order-form m-3" style="background-color:#ffdddd";>
+      <h2>DECLINED</h2>
+      <div class="d-flex flex-row justify-content-between m-3">
+    <% elsif my_booking.accept == true %>
+      <div class="card order-form m-3" style="background-color:#ddffdd;">
+      <h2>ACCEPTED!</h2>
+      <div class="d-flex flex-row justify-content-between m-3">
+    <% else %>
+      <h2>  status: pending <br></h2>
     <% end %>
-<% end %>
-
+      <div class="m-3">
+        <%= cl_image_tag(my_booking.container.photo.key, height: 300, width: 400, crop: :fill) %>
+      </div>
+      <div class="card-body">
+        <h2>Container: <%= my_booking.container.name %></h2>
+        <p>Contact Seller: <%= my_booking.container.user.email %></p>
+            <%= my_booking.comment %><br>
+            Price: <%= my_booking.price %><br>
+            Rental Start Date: <%= my_booking.date_from %><br>
+            Rental End Date: <%= my_booking.date_to %><br>
+            <%= link_to "Order Again?", container_path(my_booking.container), class: "btn btn-primary"%>
+      </div>
+    </div>
+  </div>
+ <% end %>
 </div>

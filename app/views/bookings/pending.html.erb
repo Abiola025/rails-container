@@ -1,0 +1,28 @@
+<div class="container">
+<h1>Pending Orders</h2>
+<h2>Don't leave your customers hanging, approve or decline the orders below</h3>
+<%= render "shared/orderNavigation"%>
+
+
+<% if @sales_pending.empty?%>
+  <h1>You have no pending orders</h1>
+<% else %>
+  <% @sales_pending.each do |my_sale| %>
+      <% my_sale.each do |sale| %>
+      <div class="card-booking-history border p-4 m-4 #ddffff">
+
+      <p>Your Container Reference: <%= sale.container.name %></p>
+      <p>Customer Contact: <%= sale.user.email %></p>
+      <p>Customer Comments: <%= sale.comment %></p>
+      <p>Rental Start Date: <%= sale.date_from %></p>
+      <p>Rental End Date:<%= sale.date_to %></p>
+      <p>Total: £<%= sale.price %></p>
+      <div class="d-flex flex-row justify-content-around">
+      <%= button_to "Accept", accept_booking_path(sale), method: :patch, class: "btn btn-success" %>
+      <%= button_to "Decline", decline_booking_path(sale), method: :patch, class: "btn btn-danger" %>
+      </div>
+      </div>
+      <% end %>
+  <% end %>
+<% end %>
+</div>

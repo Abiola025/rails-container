@@ -1,0 +1,24 @@
+<div class="container">
+<h1>Active Orders</h2>
+<%= render "shared/orderNavigation"%>
+<% if @sales_active.empty?%>
+  <h1>You have no Active orders</h1>
+<% else %>
+  <% @sales_active.each do |my_sale| %>
+      <% my_sale.each do |sale| %>
+      <div class="card-booking-history border p-4 m-4" style="background-color:#ddffdd;">
+
+      <p>Your Container Reference: <%= sale.container.name %></p>
+      <p>Customer Contact: <%= sale.user.email %></p>
+      <p>Customer Comments: <%= sale.comment %></p>
+      <p>Order ID: <%= sale.id %></p>
+      <p>Rental Start Date: <%= sale.date_from %></p>
+      <p>Rental End Date:<%= sale.date_to %></p>
+      <p>Total: £<%= sale.price %></p>
+      <div class="d-flex flex-row justify-content-around">
+      </div>
+      </div>
+      <% end %>
+  <% end %>
+<% end %>
+</div>

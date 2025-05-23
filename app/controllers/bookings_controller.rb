@@ -2,15 +2,9 @@ class BookingsController < ApplicationController
 before_action :container_lookup, only: %i[create]
 
 def index
-  @my_bookings = Booking.where(user_id: current_user)
-  @containers = Container.where(user_id: current_user)
-  @sales_bookings = []
-  @containers.each do |container|
-    if container.bookings.all.empty?
-    else
-    @sales_bookings << container.bookings.all
-    end
-  end
+  @my_pending = Booking.where(user_id: current_user,accept: false, decline: false).order(:id)
+  @my_bookings = Booking.where(user_id: current_user).where("date_to > ?", DateTime.now).order(date_from: :desc)
+
 end
 
 def create
@@ -32,11 +26,11 @@ def accept
   @booking = Booking.find(params[:id])
 
   if date_clash(@booking)==true
-    redirect_to bookings_path, status: :see_other
+    redirect_to pending_bookings_path, status: :see_other
   else
     @booking.accept=true
     @booking.save
-    redirect_to bookings_path, status: :see_other
+    redirect_to pending_bookings_path, status: :see_other
   end
 end
 
@@ -44,10 +38,59 @@ def decline
   @booking = Booking.find(params[:id])
   @booking.decline =true
   @booking.save
-  redirect_to bookings_path, status: :see_other
+  redirect_to pending_bookings_path, status: :see_other
 end
 
-  private
+
+def pending
+  @containers = Container.where(user_id: current_user)
+  @sales_pending = []
+  @containers.each do |container|
+    if container.bookings.all.empty?
+    else
+    @sales_pending << container.bookings.where(accept: false, decline: false).order(id: :desc)
+    end
+  end
+end
+
+def completed
+  @containers = Container.where(user_id: current_user)
+  @sales_completed = []
+  @containers.each do |container|
+    if container.bookings.all.empty?
+    else
+    @sales_completed << container.bookings.where(accept: true).where("date_to < ?", DateTime.now).order(date_from: :desc)
+    end
+  end
+end
+
+def active
+  @containers = Container.where(user_id: current_user)
+  @sales_active = []
+  @containers.each do |container|
+    if container.bookings.all.empty?
+    else
+    @sales_active << container.bookings.where(accept: true).where("date_to > ?", DateTime.now).order(date_from: :desc)
+    end
+  end
+end
+
+
+def rejected
+  @containers = Container.where(user_id: current_user)
+  @sales_rejected = []
+  @containers.each do |container|
+    if container.bookings.all.empty?
+    else
+    @sales_rejected << container.bookings.where(decline: true).order(date_from: :desc)
+    end
+  end
+end
+
+
+
+
+private
   def booking_params
     params.require(:booking).permit(:comment, :date_from, :date_to)
   end
@@ -81,11 +124,10 @@ end
           result = true
         elsif booking.date_from < clash.date_from && booking.date_to > clash.date_to
           result = true
-          break
         else
           result = false
         end
-      end
+        end
       return result
   end
 end

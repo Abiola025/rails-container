@@ -18,6 +18,13 @@ resources :bookings, only: [:index] do
     patch "accept"
     patch "decline"
   end
+  collection do
+    get :completed
+    get :rejected
+    get :purchases
+    get :pending
+    get :active
+  end
 end
 
 end
