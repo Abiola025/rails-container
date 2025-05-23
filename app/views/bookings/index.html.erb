@@ -8,7 +8,7 @@ My Containers
  <br>
  <div class="card">
  Container Details (repeat for others): <%= my_booking.container.name %><br>
- <img src="<% my_booking.container.image_url %>" class="card-img-top" alt="...">
+ <%= cl_image_tag(my_booking.container.photo.key, height: 300, width: 400, crop: :fill) %>
   <% if my_booking.decline == true %>
        <h2> status: Declined <br></h2>
         <% elsif my_booking.accept == true %>
