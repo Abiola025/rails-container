@@ -1,5 +1,6 @@
 class ContainersController < ApplicationController
   before_action :set_user, only: %i[new create]
+  skip_before_action :authenticate_user!, only: :index
   def index
     @containers = Container.all
   end
