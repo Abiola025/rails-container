@@ -8,3 +8,17 @@
   background-size: cover;
   position: relative;
 }
+
+.card-booking-history {
+//  height: 100%;
+  width: 100%;
+
+  background-color: white;
+  max-width: 700px;
+  box-shadow: 2px 2px 5px grey, -2px -2px 5px grey;
+  border-radius: 10px;
+}
+
+.card-booking-history p {
+  font-size:26px;
+}

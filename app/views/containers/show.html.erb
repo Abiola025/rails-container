@@ -1,57 +1,78 @@
 
-
-<%= link_to "Back", containers_path, class: "btn btn-primary" %>
-
 <div class="container">
-<div class= "card card-container">
-     <%= cl_image_tag(@container.photo.key, height: 300, width: 400, crop: :fill) %>
-      <div class="card-body">
-       <h2><%= @container.name %></h2>
-       <%= @container.detail %><br>
-       daily price: <%= @container.daily_price %><br>
-       width: <%= @container.width %><br>
-       height: <%= @container.height %><br>
-       length: <%= @container.length %><br>
-       Container weight: <%= @container.empty_weight %><br>
-       Max Cargo Weight: <%= @container.maximum_weight %><br>
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><%= link_to "Home", root_path%></li>
+    <li class="breadcrumb-item"><%= link_to "Containers", containers_path%></li>
+    <li class="breadcrumb-item active" aria-current="page"><%= @container.name %></li>
+  </ol>
+</nav>
+
+<div class="d-flex flex-row justify-content-evenly">
+
+  <div>
+  <%= cl_image_tag(@container.photo.key, height: 300, width: 400, crop: :fill) %>
+  </div>
+
+  <div class= "card form " style="width:100%;">
+        <div class="card-body">
+        <h2><%= @container.name %></h2>
+
+        <p class="card-text">Daily Price: £<%= @container.daily_price %><br>
+        <p class="card-text">HxWxL = <%= @container.height %>x<%= @container.width %>x<%= @container.length %><br>
+        <p class="card-text">Container weight: <%= @container.empty_weight %></p>
+        <p class="card-text">Max Cargo Weight: <%= @container.maximum_weight %></p>
+        <p class="card-text"><%= @container.detail %></p>
+    </div>
   </div>
 </div>
-<h2>Your Booking History</h2>
+  <div>
+  <br>
+  <div class="border order-form mt-4 p-3">
+  <h2>Rent Container</h2>
+    <%= simple_form_for [@container, @booking] do |f| %>
+      <%= f.input :comment %>
+      <%= f.input :date_from,
+            as: :string,
+            input_html: { data: { controller: "datepicker" } } %>
+      <%= f.input :date_to,
+            as: :string,
+            input_html: { data: { controller: "datepicker" }, },
+            class: "m-4" %>
+      <%= f.button :submit, "Submit", class: "btn btn-primary m-3"%>
+    <% end %>
+</div>
+</div>
 
+<br>
+<br>
+<br>
+<h2>Your Rental History</h2>
+
+<% if @bookings.count == 0 %>
+  <p>you have not rented this container before</p>
+<% else %>
 ` <% @bookings.each do |booking| %>
 <br>
-    <div class="card">
-
-
-      <% if booking.decline == true %>
-       <h2> status: Declined <br></h2>
+    <% if booking.decline == true %>
+      <div class="card-booking-history border p-4" style="background-color:#ffdddd;">
+       <h2> Order Declined<br></h2>
+       <h3> Contact the seller for more details</h3>
         <% elsif booking.accept == true %>
-         <h2>status: accepted <br></h2>
+        <div class="card-booking-history border p-4" style="background-color:#ddffdd;">
+         <h2>Order Accepted!<br></h2>
         <% else %>
-       <h2>  status: pending <br></h2>
+        <div class="card-booking-history border p-4" style="background-color:#ddffff;">
+       <h2>  The seller is checking over your order and will update shortly <br></h2>
         <% end %>
 
-      Your Comments: <%= booking.comment %><br>
-      Price: <%= booking.price %><br>
-      Rental Start Date: <%= booking.date_from %><br>
-      Rental End Date: <%= booking.date_to %><br>
+
+      <p> Price: £<%= booking.price %></p>
+      <p> Collection Date: <%= booking.date_from %></p>
+      <p> Return Date: <%= booking.date_to %></p>
+      <p style="font-size:18px;">Your Comments: <%= booking.comment %></p>
 
     </div>
   <% end %>
-
-  <div>
-  <br>
-  <div class="border form mt-4">
-  <h2>Create New Booking</h2>
-    <%= simple_form_for [@container, @booking] do |f| %>
-      <%= f.input :comment %>
-      <%= f.input :date_from %>
-      <%= f.input :date_to %>
-      <%= f.button :submit %>
     <% end %>
-<div>
-
-
-
     </div>
-</div>
