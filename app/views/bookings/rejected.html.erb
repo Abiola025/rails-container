@@ -1,0 +1,25 @@
+<div class="container">
+<h1>Rejected Orders</h2>
+<%= render "shared/orderNavigation"%>
+
+<% if @sales_rejected.empty?%>
+  <h1>You have no rejected orders</h1>
+<% else %>
+  <% @sales_rejected.each do |my_sale| %>
+      <% my_sale.each do |sale| %>
+      <div class="card-booking-history border p-4 m-4" style="background-color:#ffdddd;">
+
+      <p>Your Container Reference: <%= sale.container.name %></p>
+      <p>Customer Contact: <%= sale.user.email %></p>
+      <p>Customer Comments: <%= sale.comment %></p>
+      <p>Order ID: <%= sale.id %></p>
+      <p>Rental Start Date: <%= sale.date_from %></p>
+      <p>Rental End Date:<%= sale.date_to %></p>
+      <p>Total: £<%= sale.price %></p>
+      <div class="d-flex flex-row justify-content-around">
+      </div>
+      </div>
+      <% end %>
+  <% end %>
+<% end %>
+</div>
