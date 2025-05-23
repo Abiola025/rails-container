@@ -7,11 +7,12 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
+Container.destroy_all
+User.destroy_all
 puts "creating user"
 user = User.new
 user.email = 'bobski@bobski.com'
-user.encrypted_password = "something"
+user.password = "something"
 user.save!(validate: false)
 puts "user created"
 
